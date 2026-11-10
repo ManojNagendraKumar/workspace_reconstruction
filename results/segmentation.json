@@ -1,0 +1,201 @@
+{
+  "single_view": {
+    "scenes": 30,
+    "gt_objects": 180,
+    "object_recall": 0.9777777777777777,
+    "cluster_precision": 0.8148148148148148,
+    "point_accuracy": 0.8750964409110731,
+    "table_removed": 1.0,
+    "merged_clusters": 2,
+    "recall_per_class": {
+      "distractor": {
+        "objects": 20,
+        "recall": 0.95
+      },
+      "duck": {
+        "objects": 32,
+        "recall": 0.9375
+      },
+      "jenga_block": {
+        "objects": 41,
+        "recall": 1.0
+      },
+      "lego_brick": {
+        "objects": 24,
+        "recall": 1.0
+      },
+      "mug": {
+        "objects": 36,
+        "recall": 1.0
+      },
+      "teddy": {
+        "objects": 27,
+        "recall": 0.9629629629629629
+      }
+    },
+    "baseline_order": {
+      "scenes": 30,
+      "gt_objects": 174,
+      "object_recall": 0.9367816091954023,
+      "cluster_precision": 0.740909090909091,
+      "point_accuracy": 0.815049775522155,
+      "table_removed": 1.0,
+      "merged_clusters": 1
+    },
+    "wrong_object_points": {
+      "wrong": 7447,
+      "as_table": 1400,
+      "as_table_within_6mm_of_table": 1284,
+      "as_noise": 627,
+      "in_other_cluster": 5420
+    },
+    "missed_objects": {
+      "by_reason": {
+        "absorbed by table or noise": 1,
+        "merged": 1,
+        "split": 2
+      },
+      "list": [
+        {
+          "class": "teddy",
+          "reason": "absorbed by table or noise",
+          "height_mm": 52.190737798810005
+        },
+        {
+          "class": "distractor",
+          "reason": "merged",
+          "height_mm": 96.96364097180776
+        },
+        {
+          "class": "duck",
+          "reason": "split",
+          "height_mm": 78.41306109912694
+        },
+        {
+          "class": "duck",
+          "reason": "split",
+          "height_mm": 78.65947391837835
+        }
+      ]
+    }
+  },
+  "fused_5_views": {
+    "scenes": 30,
+    "gt_objects": 196,
+    "object_recall": 0.9387755102040817,
+    "cluster_precision": 0.9787234042553191,
+    "point_accuracy": 0.920826724892072,
+    "table_removed": 0.9999653094800334,
+    "merged_clusters": 10,
+    "recall_per_class": {
+      "distractor": {
+        "objects": 23,
+        "recall": 0.6956521739130435
+      },
+      "duck": {
+        "objects": 34,
+        "recall": 0.9411764705882353
+      },
+      "jenga_block": {
+        "objects": 42,
+        "recall": 0.9761904761904762
+      },
+      "lego_brick": {
+        "objects": 28,
+        "recall": 0.9642857142857143
+      },
+      "mug": {
+        "objects": 40,
+        "recall": 0.975
+      },
+      "teddy": {
+        "objects": 29,
+        "recall": 1.0
+      }
+    },
+    "baseline_order": {
+      "scenes": 30,
+      "gt_objects": 190,
+      "object_recall": 0.9421052631578948,
+      "cluster_precision": 0.9179487179487179,
+      "point_accuracy": 0.9041981066235334,
+      "table_removed": 0.9996259979173898,
+      "merged_clusters": 7
+    },
+    "wrong_object_points": {
+      "wrong": 11132,
+      "as_table": 4688,
+      "as_table_within_6mm_of_table": 4481,
+      "as_noise": 260,
+      "in_other_cluster": 6184
+    },
+    "missed_objects": {
+      "by_reason": {
+        "merged": 10,
+        "absorbed by table or noise": 2
+      },
+      "list": [
+        {
+          "class": "lego_brick",
+          "reason": "merged",
+          "height_mm": 43.83340186905116
+        },
+        {
+          "class": "mug",
+          "reason": "absorbed by table or noise",
+          "height_mm": 68.00796912284568
+        },
+        {
+          "class": "jenga_block",
+          "reason": "merged",
+          "height_mm": 32.708905928302556
+        },
+        {
+          "class": "distractor",
+          "reason": "merged",
+          "height_mm": 71.02831050360692
+        },
+        {
+          "class": "distractor",
+          "reason": "merged",
+          "height_mm": 51.600807695649564
+        },
+        {
+          "class": "distractor",
+          "reason": "merged",
+          "height_mm": 26.83289663400501
+        },
+        {
+          "class": "duck",
+          "reason": "merged",
+          "height_mm": 79.92620405275375
+        },
+        {
+          "class": "distractor",
+          "reason": "merged",
+          "height_mm": 98.35715232475195
+        },
+        {
+          "class": "duck",
+          "reason": "merged",
+          "height_mm": 76.90319175162585
+        },
+        {
+          "class": "distractor",
+          "reason": "merged",
+          "height_mm": 94.31702143047005
+        },
+        {
+          "class": "distractor",
+          "reason": "merged",
+          "height_mm": 69.9445930076763
+        },
+        {
+          "class": "distractor",
+          "reason": "absorbed by table or noise",
+          "height_mm": 53.15441428683698
+        }
+      ]
+    }
+  }
+}

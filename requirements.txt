@@ -1,0 +1,5 @@
+# Python 3.11 (data generation and evaluation); the pipeline itself is C++ with PCL
+numpy>=1.26
+scipy>=1.11
+matplotlib>=3.8
+pybullet==3.2.7

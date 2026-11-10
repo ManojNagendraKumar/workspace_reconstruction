@@ -1,0 +1,6 @@
+data/
+runs/
+__pycache__/
+*.onnx
+results/runs/
+cpp/build/
