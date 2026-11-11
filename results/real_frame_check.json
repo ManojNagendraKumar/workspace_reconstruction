@@ -1,0 +1,59 @@
+{
+  "source": "GraspNet 1Billion example frame (graspnet-baseline repository), RealSense camera on a robot arm",
+  "image_size": [
+    720,
+    1280
+  ],
+  "workspace_points": 513688,
+  "missing_depth_fraction_in_workspace": 0.030631038647342995,
+  "table_plane_inlier_fraction": 0.5259359767018112,
+  "pipeline_input_points": 513688,
+  "pipeline_filtered_points": 28959,
+  "clusters": 7,
+  "cluster_points": [
+    11780,
+    1153,
+    477,
+    291,
+    109,
+    89,
+    88
+  ],
+  "unclustered_points": 38,
+  "annotated_objects": 9,
+  "annotated_object_ids": [
+    1,
+    3,
+    6,
+    9,
+    23,
+    27,
+    52,
+    62,
+    39
+  ],
+  "cluster_of_each_annotated_object": [
+    1,
+    1,
+    4,
+    1,
+    1,
+    6,
+    2,
+    1,
+    1
+  ],
+  "objects_on_their_own": 3,
+  "objects_merged_with_others": 6,
+  "objects_without_a_cluster": 0,
+  "false_clusters_at_table_level": 3,
+  "timing_ms": {
+    "1_crop": 5.52156,
+    "2_voxel": 21.9629,
+    "3_outliers": 32.4664,
+    "4_plane": 6.11269,
+    "5_clusters": 23.8772,
+    "total": 89.9407
+  },
+  "notes": "No per point labels exist for this frame, so there is no point level score. Each annotated object is assigned the cluster holding most points within 3 cm of its annotated position."
+}

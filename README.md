@@ -5,7 +5,8 @@ noisy and full of holes. This project fuses several wrist camera views into one 
 base frame and splits it into separate objects with a classical PCL pipeline in C++.
 
 Scenes come from a simulated workcell (PyBullet: Franka Panda arm with a wrist camera, cluttered table),
-which gives a ground truth object label for every point, so the segmentation can be scored exactly.
+which gives a ground truth object label for every point, so the segmentation can be scored exactly. The same
+pipeline is also run on a real RealSense frame recorded on a robot arm (see Real data check).
 
 ![Top view of a fused scene: ground truth vs clusters](results/segmentation_example.png)
 
@@ -67,6 +68,32 @@ In the baseline order the outlier filter removed enough points from 6 objects th
 ![Time per stage](results/timing_per_stage.png)
 
 
+## Real data check: one RealSense frame
+
+To see how the pipeline behaves outside simulation, `python/real_frame_check.py` runs it, with no parameter
+changed, on the public example frame of GraspNet 1Billion (Fang et al., CVPR 2020): a RealSense camera mounted
+on a robot arm, looking at everyday objects on a table. The script downloads the frame from the
+[`graspnet-baseline`](https://github.com/graspnet/graspnet-baseline) repository. The frame has no camera pose, so
+the table plane is fitted first and used as the base frame. It has no per point labels either, so this is a
+qualitative check: each of the 9 annotated objects is assigned the cluster that holds most
+points near its annotated position.
+
+![Pipeline output on a real RealSense frame](results/real_frame_segmentation.png)
+
+- **Only 3 of 9 objects came out on their own** (the banana, the toy animal and a small blue
+  part). The other 6 (two bottles, the can, the drill, the cup and the cracker box) touch or nearly touch
+  each other and merged into one cluster, together with part of the robot's mounting plate at the right edge,
+  which lies inside the workspace. In simulation the same pipeline found 93.9% of objects on their own.
+- **3 false clusters at table level.** Depth noise on the dark table leaves patches just outside the 6 mm
+  plane threshold, and clustering turns them into objects. A minimum height check would remove them.
+- **Speed held up:** 90 ms for 513,688 input points on one CPU thread, against 45 ms for about
+  326,000 fused points in simulation.
+- **Missing depth:** 3.1% of the depth pixels inside the workspace have no value.
+
+This one frame makes the case for the next steps below more clearly than the simulation does: splitting
+touching objects needs more than distance (surface normals, colour or a learned instance mask), and a real robot
+needs a self filter for its own body.
+
 ## How to run
 
 ```bash
@@ -82,6 +109,7 @@ cmake --build cpp/build
 ./cpp/build/workspace_segmentation data/scene_000/fused.pcd /tmp/out 20 baseline   # textbook order
 
 python python/evaluate.py                       # runs both orders on every scene and scores them
+python python/real_frame_check.py               # runs the pipeline on one real RealSense frame
 ```
 
 Output of the C++ program: `segmented.pcd` (label 0 = table, k = cluster k), `clusters.json` (centroid and
@@ -108,17 +136,20 @@ bounding box per cluster) and `timing.json` (milliseconds per stage).
 
 - **Simulation, not a real robot.** Depth comes from PyBullet's renderer with a stereo noise model (error
   growing with Z squared, random dropouts). Real sensors add reflections, multipath and missing depth on
-  shiny or transparent objects.
+  shiny or transparent objects. Real data is checked on one frame only, without a score (see Real data check).
 - **Robot self filtering uses the simulator's labels.** On a real robot this is a URDF based self filter.
 - **No ROS2 node in this version.** The pipeline is a standalone C++ program reading PCD files; a ROS2
   node subscribing to PointCloud2 and publishing clusters is the next step.
 
 ## Next steps
 
-1. Spread the view targets so the gripper's blind spot is covered by other views.
-2. TSDF fusion instead of concatenating views, for cleaner surfaces and fewer bridges between objects.
-3. Region growing with normals and curvature, or a learned instance mask, to split touching objects.
-4. ROS2 node with tf2 for the camera pose at capture time.
+1. Region growing with normals and curvature, or a learned instance mask, to split touching objects. The real
+   frame shows this matters most.
+2. Scored evaluation on real labelled data (OCID or GraspNet), plus a minimum height check and a robot self
+   filter for real scenes.
+3. Spread the view targets so the gripper's blind spot is covered by other views.
+4. TSDF fusion instead of concatenating views, for cleaner surfaces and fewer bridges between objects.
+5. ROS2 node with tf2 for the camera pose at capture time.
 
 ## Companion project
 
