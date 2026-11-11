@@ -4,11 +4,19 @@ A robot arm needs a stable 3D model of its workspace before it can plan a grasp,
 noisy and full of holes. This project fuses several wrist camera views into one point cloud in the robot
 base frame and splits it into separate objects with a classical PCL pipeline in C++.
 
-Scenes come from a simulated workcell (PyBullet: Franka Panda arm with a wrist camera, cluttered table),
-which gives a ground truth object label for every point, so the segmentation can be scored exactly. The same
-pipeline is also run on a real RealSense frame recorded on a robot arm (see Real data check).
+![Pipeline output on a real RealSense frame](results/real_frame_segmentation.png)
+
+*The same C++ pipeline on a real RealSense frame recorded by a camera on a robot arm (GraspNet 1Billion), with
+no parameter changed: 3 of 9 objects come out on their own and 6 touching objects merge into one cluster,
+in 90 ms. Details in [Real data check](#real-data-check-one-realsense-frame).*
+
+The main results below come from a simulated workcell (PyBullet: Franka Panda arm with a wrist camera,
+cluttered table), which gives a ground truth object label for every point, so the segmentation can be scored
+exactly.
 
 ![Top view of a fused scene: ground truth vs clusters](results/segmentation_example.png)
+
+*A simulated scene fused from 5 wrist camera views: ground truth on the left, clusters on the right.*
 
 ## Pipeline
 
@@ -76,9 +84,7 @@ on a robot arm, looking at everyday objects on a table. The script downloads the
 [`graspnet-baseline`](https://github.com/graspnet/graspnet-baseline) repository. The frame has no camera pose, so
 the table plane is fitted first and used as the base frame. It has no per point labels either, so this is a
 qualitative check: each of the 9 annotated objects is assigned the cluster that holds most
-points near its annotated position.
-
-![Pipeline output on a real RealSense frame](results/real_frame_segmentation.png)
+points near its annotated position. The result is the first figure at the top of this page.
 
 - **Only 3 of 9 objects came out on their own** (the banana, the toy animal and a small blue
   part). The other 6 (two bottles, the can, the drill, the cup and the cracker box) touch or nearly touch
